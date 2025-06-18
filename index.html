@@ -9,7 +9,7 @@
     <body>
         <div class="container">
             <form class="w-50 offset-3 mt-5" >
-                <input type="text" class="form-control a_name"/>
+                <input type="text" placeholder="Enter your mobile name" class="form-control a_name"/>
                 <input type="button" value="save" class="btn btn-primary bnt-sm w-100 mt-5" onclick="saveBrandName(this)" />
             </form>
         </div>
@@ -17,12 +17,40 @@
 
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
       <script>
+
+        //let ceo1 = new classname();
+        let xhr = new XMLHttpRequest();
+
         //1.function defination
         function saveBrandName(e){ // e is formal arguement
             console.log(e);
             // this is correct
            console.log(document.querySelector('.a_name'));
            console.log(document.querySelector('.a_name').value);
+
+           let mn = document.querySelector('.a_name').value;
+
+           //API Call
+           xhr.open('POST','http://localhost:1337/api/android-mobiles');
+
+           xhr.setRequestHeader('Accept','application/json');
+           xhr.setRequestHeader('Content-Type','application/json');
+
+           xhr.setRequestHeader('Authorization','Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNzUwMjYzNTcyLCJleHAiOjE3NTI4NTU1NzJ9.D6ryv9yKrlZCBLnjrJV8fjm-JT6nR1sR3_3pQCOR-mU');
+
+           let payload = {
+                        "data": {
+                            "company": mn
+                        }
+                    };
+
+            payload = JSON.stringify(payload);
+
+           //JS Object -> JSON.stringify -> JSON String
+
+
+           xhr.send(payload);
+
         }
       </script>
     </body>
